@@ -1,7 +1,7 @@
 # Pet Yeet — Design
 
 **Date:** 2026-11-21
-**Status:** awaiting approval
+**Status:** approved by Robin, 2026-11-21
 **Platform:** Roblox
 
 ---
@@ -153,17 +153,32 @@ numbers.
 - Record and post the launch clips
 - Playtest and describe how it feels
 
-## Open questions awaiting Robin
+## Decisions on the review's questions
 
-Raised by a design review on 2026-11-21. The game does not need them to be
-designed, but the **plan** does.
+A design review on 2026-11-21 raised four questions the plan needed. Robin
+delegated all four ("I let you pick") and approved Rojo explicitly.
 
-1. **Time budget** — how much time per week, and when should it be live?
-2. **The map's setting and tone** — pure taste, and Robin is the director.
-3. **What result would count as a "yes" on the money question** — needed before
-   publish, because a real test means analytics on the funnel wired in beforehand.
-4. **Two practical yes/nos** — may Claude install Rojo on the Mac, and is the
-   Roblox account cleared for custom audio uploads?
+1. **Time budget — about one week.** Publish rough but live, then improve in
+   public. Consequences: one hand-built lane, pets kept simple, two upgrade
+   tiers at launch, no bespoke sound design in v1. This follows directly from
+   the anti-goal about the simple-verb meta moving on.
+2. **The map — a bright cartoon launch hill.** A grassy slope you throw out
+   over, with the distance stretching away into the sky. Hand-built opening
+   stretch, procedurally tiled beyond it. Robin is the director on taste and
+   can overrule this at any point; it is a Claude call made in his absence.
+3. **The money test — one real purchase by a stranger counts as "yes".**
+   Small, achievable, and it genuinely answers the question Robin asked.
+   **This has a build consequence:** funnel analytics must be wired in
+   *before* publish — join → first throw → first upgrade → first purchase —
+   not bolted on afterwards.
+4. **Rojo — approved.** The game's source lives as files in this repo, not
+   trapped inside a binary place file. This resolves the rebuildability
+   anti-goal, and lets Claude work when Studio is closed. One-time ask of
+   Robin: click to install the Studio plugin.
+   **Custom audio — still unknown.** Robin did not confirm whether his account
+   is age-verified, and Roblox restricts custom audio uploads. Default: design
+   around **Roblox's free audio library** from the start. If Robin later
+   confirms verification, custom sound becomes a v2 upgrade. Never block on this.
 
 ## Facts worth keeping (verified 2026-11-21)
 
