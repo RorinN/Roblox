@@ -1,0 +1,155 @@
+# Pet Yeet — Design
+
+**Date:** 2026-11-21
+**Status:** awaiting approval
+**Platform:** Roblox
+
+---
+
+## Intent and why
+
+Robin wants to build Roblox games for the feeling of watching real people play
+something he made, and to find out honestly whether earning money from Roblox is
+actually possible.
+
+That second motive is framed as a **test**, not a bet. So the first game is
+deliberately a cheap, fast experiment to learn from — not a masterpiece. The
+realistic day-one result is a few hundred players and near-zero revenue. The real
+prize is what we learn and the proof that the whole pipeline works end to end:
+build, publish, measure, decide.
+
+## The game
+
+**One verb: you throw your pet as far as you can.**
+
+The loop:
+
+1. A power meter sweeps across the screen. Press to release the throw.
+2. Release timing applies a multiplier. A perfect release triggers a bigger
+   **"PERFECT!"** throw animation.
+3. The pet flies along a calculated arc. The camera follows it.
+4. Distance converts to coins, counting up during the flight.
+5. Coins buy throw-power upgrades and new pets, which make the next throw go further.
+6. A global leaderboard tracks the furthest single throw.
+
+The craft lives entirely in the **animation and feel**: the wind-up, the release,
+the pet's flight and tumble, the impact, the number climbing. The mechanic is a
+one-liner on purpose.
+
+## Goals
+
+- A published, playable game with the full loop working end to end
+- Fun with exactly **one** player in the server
+- Works properly on phones
+- Produces at least one genuinely **clippable** moment (the perfect throw, the absurd number)
+- Monetisation wired in, so the money question can actually be tested
+- Built with the kits Robin already owns
+
+## Non-goals (version one)
+
+- Rebirths, trading, pet fusion, egg hatching
+- Any interaction between players
+- More than one map
+- Real physics simulation
+- *Don't Drop The Egg* — that is the next project, not part of this one
+
+## Anti-goals
+
+Things that would make this a failure even if it technically works:
+
+- A game that is boring with one player in the server
+- A game that needs a populated server to be fun
+- A throw that feels weak or cheap — **the feel is the product**
+- Distances the player cannot learn to influence
+- Shipping so late that the simple-verb meta has moved on
+- A build that only works on Robin's machine by accident and cannot be rebuilt
+
+## Constraints
+
+- **Roblox Studio and Blender run on Robin's Mac only.** Cloud sessions cannot reach
+  them unless a folder is shared via `Settings → Claude Code → Remote Control`.
+- Building uses the fwjelaa kits on the Mac Desktop: `Roblox-Animations-by-fwjelaa`
+  (AnimKit), `Roblox-Maps-by-fwjelaa` (MapKit),
+  `Picture-to-Roblox-Model-by-fwjelaa` (cuhkit), and `UI Icon Pack`.
+- **Robin directs; he does not do fiddly technical work.** No "place this part" or
+  "tweak this number" requests.
+- Must work on phones — most Roblox players are mobile.
+- Publishing, the store page and thumbnails stay with Robin.
+- No kit covers gameplay systems (saving, leaderboards, purchases) or game feel
+  beyond character animation (particles, screen shake, sound). That Luau gets
+  written from scratch.
+
+## Approaches considered
+
+| | Approach | Verdict |
+|---|---|---|
+| **A** | **Real physics throw.** Pet is a true physics object; it bounces and rolls, distance is emergent. | **Rejected.** Network-inconsistent across clients, painful to tune, cheat-prone, worst on phones. |
+| **B** | **Scripted arc with upgrade multipliers.** Fixed animation, then a calculated flight path from the player's stats. The proven simulator formula. | Solid but **no skill** — press and watch. |
+| **C** | **Timing meter plus scripted arc.** One button and a power meter; timing gives a multiplier and a perfect release gets its own bigger animation. Then the calculated arc. | **Chosen by Robin.** |
+
+**Why C:** it keeps B's predictable economics and phone-friendliness — which is what
+makes the money question testable at all — while adding one moment of real skill and
+a clippable perfect-hit animation, which is the part Robin cares about. Barely more
+work than B, and it avoids every one of A's networking problems.
+
+## The how, as decided
+
+- **No real physics.** The pet's flight is a calculated arc.
+- `distance = base × throw-power stat × pet multiplier × timing multiplier`
+- One button, one power meter.
+- A perfect release gets its own larger animation plus a visual and audio flash.
+- The camera follows the pet in flight.
+- Global leaderboard: furthest single throw.
+- One map.
+- Three or four pets, each with a distinct multiplier and flight character.
+- A handful of throw-power upgrade levels.
+
+## Left to the builder
+
+These are **my calls**, not Robin's decisions — flagged so he can overrule any of them:
+
+- **Distance formula numbers and the upgrade curve** — tuned by feel in Studio,
+  starting conservative.
+- **Perfect-timing window width** — generous at first. Punishing meters lose casual players.
+- **When coins are awarded** — counted up during the flight rather than on landing; it reads better.
+- **Which pets** — chosen from what cuhkit produces well and what the icon pack supports.
+- **Sound design** — no kit covers it; written from scratch.
+- **Saving** — Roblox DataStore, holding best distance, coins, upgrade levels and owned pets.
+- **Monetisation** — start with one or two gamepasses (throw power, luck) rather than a full shop.
+
+## Facts worth keeping (verified 2026-11-21)
+
+- **DevEx:** $0.0038 per earned Robux; $0.0054 for verified US 18+ players;
+  **30,000 Robux minimum** to cash out (about $114).
+- The **median** DevEx participant earns roughly **$1,500 a year**. The top ten
+  creators took **$657 million** between them. Money is real and savagely unequal.
+- **Current meta is simple-verb games.** *Steal An Egg* is #1 (around 820,000 average
+  concurrent in November, 7.6M peak). *Throw Food For Animals* is in the top five.
+- *Grow a Garden*'s first version was reportedly built by a 16-year-old in about **three days**.
+- Virality on Roblox is **clip-driven**: one viral short earns algorithm placement,
+  which earns players, which generates more clips.
+- "Egg" is at peak saturation. The durable pattern is the *shape* — one verb,
+  collection, clips — not eggs specifically.
+
+## How we work together
+
+- Robin decides; Claude builds. Robin is the director.
+- Claude never asks Robin to do fiddly technical work.
+- Claude tells the truth about money and odds, including unwelcome truths.
+- Decisions get written down so nothing is lost between sessions.
+- "I don't know, you pick" is always a valid answer — Claude then chooses and says why.
+
+## Picking this up in a new session
+
+A new chat remembers **nothing**. This document is the memory.
+
+1. Open Claude Code on the Mac inside a kit folder (or share a folder with a cloud session).
+2. Say: *"read `docs/superpowers/specs/2026-11-21-pet-yeet-design.md` in my Roblox repo."*
+3. Make sure Roblox Studio is open with its MCP server enabled
+   (`Assistant → ... → Manage MCP Servers → Enable Studio as MCP server`).
+
+## Next project
+
+***Don't Drop The Egg*** — a physics egg carried through an obstacle course while
+other players sabotage you. Deferred on purpose: it needs a populated server to be
+fun, which a brand-new game does not have. Revisit once Pet Yeet has an audience.
