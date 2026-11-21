@@ -115,7 +115,55 @@ These are **my calls**, not Robin's decisions — flagged so he can overrule any
 - **Which pets** — chosen from what cuhkit produces well and what the icon pack supports.
 - **Sound design** — no kit covers it; written from scratch.
 - **Saving** — Roblox DataStore, holding best distance, coins, upgrade levels and owned pets.
-- **Monetisation** — start with one or two gamepasses (throw power, luck) rather than a full shop.
+- **Monetisation** — two gamepasses: **throw power** and **double coins**. A "luck"
+  gamepass was considered and **dropped**: with hatching, fusion and rebirths all
+  non-goals, there is no randomness in v1 for luck to act on. Adding a random
+  pet-roll system to justify it would cross into the non-goals.
+- **Other players' throws** — each flight renders client-side for the thrower only.
+  Simpler, cheaper, and nothing in v1 depends on seeing someone else's pet fly.
+- **Leaderboard** — OrderedDataStore behind an in-world board.
+- **Distance representation** — a hand-built opening stretch, then procedurally
+  tiled segments for the long distances.
+- **Mobile input** — tap anywhere.
+- **Clips** — v1 ships with no replay or cinematic camera. Robin screen-records.
+  A no-HUD replay, slow-motion perfect-release beat and shareable personal-best
+  card are all real features with real cost; they are candidates for v2 once we
+  know the game is worth clipping.
+
+## How "feel" gets tuned
+
+"The feel is the product" and Claude cannot perceive feel. So:
+
+**Robin playtests and describes it in plain words** — "the wind-up is too slow",
+"the meter is too fast", "the impact needs more weight". That is **directing, not
+fiddly technical work**, and it is the single most valuable thing he does on this
+project.
+
+To make that work, Claude builds a **live tuning config** — one module holding
+meter speed, wind-up duration, arc height, hang time, screen shake, flash
+intensity and impact timing, all adjustable in one place. Every sentence Robin
+says maps to exactly one number. No hunting through code, and no asking him for
+numbers.
+
+## Robin's tasks (nobody else can do these)
+
+- Mint the two gamepasses and hand over their IDs — **early**, so the purchase
+  path gets tested rather than stubbed
+- Publish the game and own the store page and thumbnails
+- Record and post the launch clips
+- Playtest and describe how it feels
+
+## Open questions awaiting Robin
+
+Raised by a design review on 2026-11-21. The game does not need them to be
+designed, but the **plan** does.
+
+1. **Time budget** — how much time per week, and when should it be live?
+2. **The map's setting and tone** — pure taste, and Robin is the director.
+3. **What result would count as a "yes" on the money question** — needed before
+   publish, because a real test means analytics on the funnel wired in beforehand.
+4. **Two practical yes/nos** — may Claude install Rojo on the Mac, and is the
+   Roblox account cleared for custom audio uploads?
 
 ## Facts worth keeping (verified 2026-11-21)
 
